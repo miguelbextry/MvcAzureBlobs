@@ -1,0 +1,40 @@
+﻿@{
+    List<ModeloAzureBlobs> blobpublico = ViewData["PUBLICO"] as List<ModeloAzureBlobs>;
+    List<ModeloAzureBlobs> blobprivado = ViewData["PRIVADO"] as List<ModeloAzureBlobs>;
+}
+
+<a asp-action="SubirImagen" asp-controller="Blob">Subir imagen a contenedor publico</a>
+
+<h1 style="color:red">Imagenes Contenedor Publico</h1>
+@if (blobpublico.Count > 0)
+{
+    @foreach (ModeloAzureBlobs modelpublico in blobpublico)
+    {
+        <h1 style="color:blue">@modelpublico.Nombre</h1>
+        <img src="@modelpublico.Url" style="width:150px;height:150px" />
+        <a asp-action="MoverPrivado" asp-controller="Blob" asp-route-nombre="@modelpublico.Nombre">Mover a contenedor privado</a>
+
+    }
+
+}
+else
+{
+    <h2 style="color:black">No hay imagenes en el contenedor publico</h2>
+}
+
+
+<h1 style="color:red">Imagenes Contenedor Privado</h1>
+@if (blobprivado.Count > 0)
+{
+    @foreach (ModeloAzureBlobs modelprivado in blobprivado)
+    {
+        <h1 style="color:blue">@modelprivado.Nombre</h1>
+        <img src="@modelprivado.Url" style="width:150px;height:150px" />
+        <a asp-action="MoverPublico" asp-controller="Blob" asp-route-nombre="@modelprivado.Nombre">Mover a contenedor publico</a>
+    }
+
+}
+else
+{
+    <h2 style="color:black">No hay imagenes en el contenedor privado</h2>
+}
